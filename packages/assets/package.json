@@ -1,5 +1,5 @@
 {
-  "name": "~@gdapps-studio/assets",
+  "name": "~gdapps-studio/assets",
   "private": true,
   "exports": {
     "./fonts/Oxanium-Bold.ttf": "./fonts/Oxanium-Bold.ttf",

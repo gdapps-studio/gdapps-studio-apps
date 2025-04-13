@@ -18,7 +18,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.3",
-    "~@gdapps-studio/assets": "workspace:*"
+    "~gdapps-studio/assets": "workspace:*"
   },
   "devDependencies": {
     "@gdapps-studio/eslint-config": "workspace:*",

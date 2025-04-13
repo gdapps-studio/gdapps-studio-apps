@@ -3,15 +3,14 @@
 
 @font-face {
   font-family: "Oxanium";
-  src: url("~@gdapps-studio/assets/fonts/Oxanium-Regular.ttf")
-    format("truetype");
+  src: url("~gdapps-studio/assets/fonts/Oxanium-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Oxanium";
-  src: url("~@gdapps-studio/assets/fonts/Oxanium-SemiBold.ttf")
+  src: url("~gdapps-studio/assets/fonts/Oxanium-SemiBold.ttf")
     format("truetype");
   font-weight: 600;
   font-style: normal;
@@ -19,22 +18,21 @@
 
 @font-face {
   font-family: "Oxanium";
-  src: url("~@gdapps-studio/assets/fonts/Oxanium-Bold.ttf") format("truetype");
+  src: url("~gdapps-studio/assets/fonts/Oxanium-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url("~@gdapps-studio/assets/fonts/Poppins-Regular.ttf")
-    format("truetype");
+  src: url("~gdapps-studio/assets/fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Poppins";
-  src: url("~@gdapps-studio/assets/fonts/Poppins-SemiBold.ttf")
+  src: url("~gdapps-studio/assets/fonts/Poppins-SemiBold.ttf")
     format("truetype");
   font-weight: 600;
   font-style: normal;
@@ -42,7 +40,7 @@
 
 @font-face {
   font-family: "Poppins";
-  src: url("~@gdapps-studio/assets/fonts/Poppins-Bold.ttf") format("truetype");
+  src: url("~gdapps-studio/assets/fonts/Poppins-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
 }

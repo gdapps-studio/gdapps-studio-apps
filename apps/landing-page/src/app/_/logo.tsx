@@ -1,4 +1,4 @@
-import logoMediumDark from "~@gdapps-studio/assets/svgs/logo-text-dark.svg";
+import logoMediumDark from "~gdapps-studio/assets/svgs/logo-text-dark.svg";
 import Image from "next/image";
 
 export const Logo = ({ width = 168, height = 27.375 }) => (
