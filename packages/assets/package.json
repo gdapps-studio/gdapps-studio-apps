@@ -1,0 +1,16 @@
+{
+  "name": "~@gdapps-studio/assets",
+  "private": true,
+  "exports": {
+    "./fonts/Oxanium-Bold.ttf": "./fonts/Oxanium-Bold.ttf",
+    "./fonts/Oxanium-Regular.ttf": "./fonts/Oxanium-Regular.ttf",
+    "./fonts/Oxanium-SemiBold.ttf": "./fonts/Oxanium-SemiBold.ttf",
+    "./fonts/Poppins-Bold.ttf": "./fonts/Poppins-Bold.ttf",
+    "./fonts/Poppins-Regular.ttf": "./fonts/Poppins-Regular.ttf",
+    "./fonts/Poppins-SemiBold.ttf": "./fonts/Poppins-SemiBold.ttf",
+    "./svgs/linkedin.svg": "./svgs/linkedin.svg",
+    "./svgs/logo-text-dark.svg": "./svgs/logo-text-dark.svg",
+    "./svgs/telegram.svg": "./svgs/telegram.svg",
+    "./svgs/twitter-x.svg": "./svgs/twitter-x.svg"
+  }
+}

@@ -12,19 +12,30 @@
   },
   "dependencies": {
     "@gdapps-studio/ui": "workspace:*",
+    "@radix-ui/react-slot": "^1.2.0",
+    "@react-spring/web": "9.7.4",
     "@tailwindcss/postcss": "^4.1.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.487.0",
     "next": "^15.2.4",
+    "nodemailer": "^6.10.1",
     "postcss": "^8.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "tailwindcss": "^4.1.3"
+    "react-intersection-observer": "^9.16.0",
+    "tailwindcss": "^4.1.3",
+    "three": "^0.169.0",
+    "~@gdapps-studio/assets": "workspace:*"
   },
   "devDependencies": {
     "@gdapps-studio/eslint-config": "workspace:*",
     "@gdapps-studio/typescript-config": "workspace:*",
     "@types/node": "^22.14.0",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
+    "@types/three": "^0.169.0",
     "eslint": "^9.24.0",
     "typescript": "5.8.2"
   }
