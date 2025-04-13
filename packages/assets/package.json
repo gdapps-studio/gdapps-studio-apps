@@ -5,6 +5,8 @@
     "./svgs/linkedin.svg": "./svgs/linkedin.svg",
     "./svgs/logo-text-dark.svg": "./svgs/logo-text-dark.svg",
     "./svgs/telegram.svg": "./svgs/telegram.svg",
-    "./svgs/twitter-x.svg": "./svgs/twitter-x.svg"
+    "./svgs/twitter-x.svg": "./svgs/twitter-x.svg",
+    "./svgs/github.svg": "./svgs/github.svg",
+    "./images/gdapps-logo-small.png": "./images/gdapps-logo-small.png"
   }
 }
