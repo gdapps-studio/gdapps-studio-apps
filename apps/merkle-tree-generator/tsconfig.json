@@ -1,11 +1,9 @@
 {
   "extends": "@gdapps-studio/typescript-config/nextjs.json",
   "compilerOptions": {
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
+    "paths": {
+      "@/*": ["./src/*", "./public/*"]
+    },
   },
   "include": [
     "**/*.ts",
@@ -14,7 +12,5 @@
     "next.config.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
