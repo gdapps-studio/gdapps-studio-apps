@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import linkedIn from "~gdapps-studio/assets/svgs/linkedin.svg";
-import telegram from "~gdapps-studio/assets/svgs/telegram.svg";
-import twitterX from "~gdapps-studio/assets/svgs/twitter-x.svg";
+import linkedIn from "@gdapps-studio/assets/svgs/linkedin.svg";
+import telegram from "@gdapps-studio/assets/svgs/telegram.svg";
+import twitterX from "@gdapps-studio/assets/svgs/twitter-x.svg";
 import { Logo2X } from "./logo";
 
 const socialLinks = [

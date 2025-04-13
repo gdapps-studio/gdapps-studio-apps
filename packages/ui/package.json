@@ -28,7 +28,7 @@
     "typescript": "5.8.2"
   },
   "dependencies": {
-    "~gdapps-studio/assets": "workspace:*",
+    "@gdapps-studio/assets": "workspace:*",
     "@radix-ui/react-accordion": "^1.2.4",
     "@radix-ui/react-slot": "^1.2.0",
     "@tailwindcss/postcss": "^4.1.3",

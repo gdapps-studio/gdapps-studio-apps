@@ -11,7 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "~gdapps-studio/assets": "workspace:*",
+    "@gdapps-studio/assets": "workspace:*",
     "@gdapps-studio/ui": "workspace:*",
     "@radix-ui/react-slot": "^1.2.0",
     "@react-spring/web": "9.7.4",
