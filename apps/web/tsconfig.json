@@ -1,5 +1,5 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@gdapps-studio/typescript-config/nextjs.json",
   "compilerOptions": {
     "plugins": [
       {
