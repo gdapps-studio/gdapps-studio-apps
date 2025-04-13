@@ -28,7 +28,7 @@ export const ConsultationButton = ({
       >
         <Button
           className={clsx(`hover:scale-105 transition-transform ${className}`)}
-          size={"sm"}
+          size={"lg"}
           {...props}
         >
           Get Free Consulting
