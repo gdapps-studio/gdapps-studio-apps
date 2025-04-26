@@ -52,7 +52,7 @@ export const PaymentCard = () => {
 
   const { data: currencyPriceInUsd = 0, isPending: priceLoading } =
     useCoingeckoPriceInUsd({
-      id: currency,
+      id: chain,
       enabled: process.env.NODE_ENV !== "development",
     });
 
