@@ -157,8 +157,6 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --font-oxanium: "Oxanium";
   --font-poppins: "Poppins";
-  /* --font-oxanium: var(--font-oxanium);
-  --font-poppins: var(--font-poppins); */
 }
 
 @layer base {
