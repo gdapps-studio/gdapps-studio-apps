@@ -2,6 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
+import { LoadingSpinner } from "./loading-spinner";
 
 const buttonVariants = cva(
   "relative inline-flex items-center hover:scale-105 transition-transform justify-center gap-2 whitespace-nowrap rounded-full transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -34,14 +35,6 @@ const buttonVariants = cva(
   }
 );
 
-const LoadingSpinner = () => (
-  <div className="absolute inset-0 flex items-center justify-center">
-    <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent">
-      <span className="sr-only">Loading...</span>
-    </div>
-  </div>
-);
-
 function Button({
   className,
   variant,
@@ -62,8 +55,13 @@ function Button({
       disabled={props.disabled || loading}
       {...props}
     >
-      {loading ? <LoadingSpinner /> : null}
-      <span className={loading ? "invisible" : ""}>{props.children}</span>
+      {loading ? (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        props.children
+      )}
     </Comp>
   );
 }
