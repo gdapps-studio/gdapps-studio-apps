@@ -29,5 +29,6 @@ export const useExtractSearchParams = () => {
       Number(amount) > 0 &&
       supportedChains.includes(chain) &&
       isSupportedCurrency,
+    isSupportedChain: supportedChains.includes(chain),
   };
 };

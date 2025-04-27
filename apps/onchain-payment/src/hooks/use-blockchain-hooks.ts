@@ -9,7 +9,6 @@ import * as ethereumHooks from "@/hooks/blockchain-hooks/ethereum";
 import * as solanaHooks from "@/hooks/blockchain-hooks/solana";
 import { ChainUnion } from "@/constants";
 import { useExtractSearchParams } from "./use-extract-search-params";
-import { useIsSupportedChain } from "./use-is-supported-chain";
 
 interface Hooks {
   useBalance: UseBalance;
@@ -17,7 +16,6 @@ interface Hooks {
   useAccount: UseAccount;
   useTransaction: UseTransaction;
   useConnectModal: UseConnectModal;
-  
 }
 
 export const blockchainHooks: Record<ChainUnion, Hooks> = {
@@ -26,8 +24,7 @@ export const blockchainHooks: Record<ChainUnion, Hooks> = {
 };
 
 export const useBlockchainHooks = () => {
-  const { chain } = useExtractSearchParams();
-  const isSupportedChain = useIsSupportedChain();
+  const { chain, isSupportedChain } = useExtractSearchParams();
   if (!isSupportedChain) throw new Error("Chain is not supported");
 
   return blockchainHooks[chain];

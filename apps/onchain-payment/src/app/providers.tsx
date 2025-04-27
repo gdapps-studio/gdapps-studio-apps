@@ -8,7 +8,6 @@ import { getDefaultConfig, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { http, WagmiProvider } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { Header } from "@/components/header";
 import {
   RAINBOW_KIT_APP_NAME,
   RAINBOW_KIT_BASE_PRC_URL,
@@ -58,7 +57,6 @@ export const Providers = ({ children }: { children: ReactNode }) => {
                 theme={rainbowKitTheme}
                 initialChain={mainnet}
               >
-                <Header />
                 <Suspense>{children}</Suspense>
               </RainbowKitProvider>
             </QueryClientProvider>
