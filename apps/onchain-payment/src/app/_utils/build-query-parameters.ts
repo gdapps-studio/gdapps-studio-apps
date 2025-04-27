@@ -1,4 +1,4 @@
-export const buildQueryParameters = ({
+export const buildPaymentPagePath = ({
   address,
   amount,
   chain,
@@ -14,5 +14,5 @@ export const buildQueryParameters = ({
   params.append("amount", amount);
   params.append("chain", chain);
   params.append("currency", currency);
-  return `?${params.toString()}`;
+  return `/payment?${params.toString()}`;
 };

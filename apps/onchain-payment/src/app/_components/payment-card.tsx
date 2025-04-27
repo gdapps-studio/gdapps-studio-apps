@@ -71,10 +71,13 @@ export const PaymentCard = () => {
   };
 
   return (
-    <Card scaleOnHover={false} className="w-full">
+    <Card
+      scaleOnHover={false}
+      className="w-full max-w-xs md:max-w-xl mx-auto px-6 py-4 md:px-12 md:py-10"
+    >
       <PaymentCardHeader />
 
-      <div className="px-8 py-6 space-y-6">
+      <div className="space-y-6">
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             Payment Request
@@ -103,7 +106,7 @@ export const PaymentCard = () => {
                   amountInUsd={currencyPriceInUsd * Number(amount)}
                 />
               }
-              label={"Requested Amount"}
+              label={"Amount To Pay"}
             />
 
             <CardRow

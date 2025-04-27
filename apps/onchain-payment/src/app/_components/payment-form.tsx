@@ -40,6 +40,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@gdapps-studio/ui/card";
+import { ExternalLink } from "lucide-react";
+import { buildPaymentPagePath } from "../_utils/build-query-parameters";
+import { toast } from "sonner";
 
 const FormItemLabelAndDescription = ({
   input,
@@ -59,11 +62,7 @@ const FormItemLabelAndDescription = ({
     </FormItem>
   );
 };
-export const PaymentForm = ({
-  onSubmit,
-}: {
-  onSubmit?: (values: PaymentFormSchema) => void;
-}) => {
+export const PaymentForm = () => {
   const form = useForm<PaymentFormSchema>({
     resolver: zodResolver(paymentFormSchema),
     defaultValues: paymentFormDefaultValues,
@@ -73,7 +72,7 @@ export const PaymentForm = ({
 
   return (
     <Card
-      className="flex flex-col gap-6 w-full max-w-xl mx-auto px-8 py-6"
+      className="flex flex-col gap-6 w-full max-w-xs md:max-w-xl mx-auto px-6 py-4 md:px-12 md:py-10"
       scaleOnHover={false}
     >
       <CardHeader>
@@ -82,7 +81,36 @@ export const PaymentForm = ({
       <CardContent>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => onSubmit?.(values))}
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit(({ address, amount, chain, currency }) => {
+                // @ts-ignore
+                const buttonClicked = e.nativeEvent.submitter?.value;
+                if (buttonClicked === "copy") {
+                  const originUrl = window.location.origin;
+                  navigator.clipboard.writeText(
+                    `${originUrl}${buildPaymentPagePath({
+                      address,
+                      amount,
+                      chain,
+                      currency,
+                    })}`
+                  );
+                  toast.success("Payment link copied to clipboard", {
+                    description: "ou can now share it with anyone",
+                  });
+                } else if (buttonClicked === "open") {
+                  window.open(
+                    buildPaymentPagePath({
+                      address,
+                      amount,
+                      chain,
+                      currency,
+                    })
+                  );
+                }
+              })(e);
+            }}
             className="w-full max-w-xl space-y-6"
           >
             <FormField
@@ -209,9 +237,26 @@ export const PaymentForm = ({
                 </FormItem>
               )}
             />
-            <Button className="w-full" size={"lg"} type="submit">
-              Submit
-            </Button>
+            <div className="flex flex-col md:flex-row md:items-center gap-5">
+              <Button
+                value="copy"
+                className="md:flex-1"
+                size={"lg"}
+                type="submit"
+              >
+                Copy Payment
+              </Button>
+              <Button
+                value="open"
+                className="relative md:flex-1"
+                size={"lg"}
+                type="submit"
+                variant={"secondary"}
+              >
+                <ExternalLink className="absolute right-4" />
+                <span>Open In Tab</span>
+              </Button>
+            </div>
           </form>
         </Form>
       </CardContent>
