@@ -3,7 +3,7 @@ import {
   chainToCurrencies,
   ChainUnion,
   CurrencyUninon,
-} from "@/constants";
+} from "../constants";
 import { useSearchParams } from "next/navigation";
 
 export const useExtractSearchParams = () => {

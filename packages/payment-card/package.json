@@ -1,0 +1,45 @@
+{
+  "name": "@gdapps-studio/payment-card",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "postcss.config.mjs"
+  ],
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "generate:component": "turbo gen react-component",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@gdapps-studio/eslint-config": "workspace:*",
+    "@gdapps-studio/typescript-config": "workspace:*",
+    "@rainbow-me/rainbowkit": "^2.2.4",
+    "@turbo/gen": "^2.5.0",
+    "@types/node": "^22.14.0",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.1",
+    "eslint": "^9.24.0",
+    "typescript": "5.8.2"
+  },
+  "dependencies": {
+    "@gdapps-studio/assets": "workspace:*",
+    "@gdapps-studio/ui": "workspace:*"
+  },
+  "peerDependencies": {
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.1",
+    "next": "15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

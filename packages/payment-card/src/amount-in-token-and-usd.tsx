@@ -1,14 +1,16 @@
-import { useExtractSearchParams } from "@/hooks/use-extract-search-params";
 import { LoadingSpinner } from "@gdapps-studio/ui/loading-spinner";
 
 export const AmountInTokenAndUsd = ({
   amountInUsd,
   priceLoading,
+  amount = "0",
+  currency = "eth",
 }: {
   priceLoading: boolean;
   amountInUsd: number;
+  amount: string | undefined;
+  currency: string | undefined;
 }) => {
-  const { amount, currency } = useExtractSearchParams();
   return (
     <div className="relative flex items-center gap-2">
       <span>

@@ -1,0 +1,11 @@
+{
+  "extends": "@gdapps-studio/typescript-config/react-library.json",
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "outDir": "dist",
+    "incremental": false
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
