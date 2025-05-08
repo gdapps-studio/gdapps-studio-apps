@@ -35,7 +35,7 @@ const CoreValueCard: React.FC<CoreValueCardProps> = ({
   return (
     // @ts-expect-error not sure why this is not working
     <animated.div ref={ref} style={fadeIn}>
-      <Card className={"flex-1 text-white min-h-full"}>
+      <Card className={"flex-1 px-6 text-white min-h-full"}>
         <CardHeader>
           <div className="bg-primary max-w-max p-2 rounded mb-4">
             {feature.icon}
