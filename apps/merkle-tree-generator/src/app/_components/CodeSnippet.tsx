@@ -2,10 +2,8 @@ import {
   ArrowDownTrayIcon,
   ClipboardDocumentIcon,
 } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
-import { DonationModal } from "./DonationModal";
+import { useState } from "react";
 import { toast } from "sonner";
-import { copyToClipboard } from "../_utils/copy-to-clipboard";
 import { downloadJson } from "../_utils/download-json";
 import { Button } from "@gdapps-studio/ui/button";
 export const CODE_SNIPPET_BLOCK_ID = "code-snippet-block";
@@ -18,13 +16,26 @@ export const CodeSnippet = ({
   merkleTree: MerkleTreeJson;
   addressesLength: number;
 }) => {
-  const [showDonationModal, setShowDonationModal] = useState(false);
   const [showFullContent, setShowFullContent] = useState(false);
 
   const handleAction = (action: "copy" | "download") => {
-    if (action === "copy") copyToClipboard(merkleTree);
+    if (action === "copy") navigator.clipboard.writeText(merkleTree);
     else if (action === "download") downloadJson(merkleTree);
-    setShowDonationModal(true);
+    toast("Donation ❤️", {
+      description: (
+        <div className="flex text-white justify-center gap-1 py-4 text-sm">
+          <span>Show some love if you find it useful</span>
+          <a
+            href="https://donation.gdapps.studio/?amount=0.005"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-semibold"
+          >
+            Donation ❤️
+          </a>
+        </div>
+      ),
+    });
   };
 
   const shouldShowLoadMore = addressesLength > 5 && !showFullContent;
@@ -82,20 +93,6 @@ export const CodeSnippet = ({
           </div>
         </div>
       </section>
-
-      <DonationModal
-        isOpen={showDonationModal}
-        onClose={() => {
-          setShowDonationModal(false);
-          toast("Enjoy building the whitelist feature 🫡");
-        }}
-        onConfirm={() => {
-          toast("Thank you!", {
-            description: "Enjoy building the whitelist feature 🫡",
-          });
-          setShowDonationModal(false);
-        }}
-      />
     </>
   );
 };

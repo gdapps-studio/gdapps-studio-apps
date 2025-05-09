@@ -1,13 +1,13 @@
-import React from 'react'
-
-import { GDAPPS_URL } from '../_utils/constants'
-
 export const Footer = () => (
-    <footer className="mt-8 text-center text-sm text-gray-500">
-        Free tool for generating cryptographic proofs for smart contract
-        whitelists created by{' '}
-        <a href={GDAPPS_URL} target="_blank" className="underline">
-            GDapps Studio
-        </a>
-    </footer>
-)
+  <footer className="flex justify-center gap-1 py-4 text-sm">
+    <span>Show some love if you find it useful</span>
+    <a
+      href="https://donation.gdapps.studio/?amount=0.005"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline block"
+    >
+      Donation ❤️
+    </a>
+  </footer>
+);
