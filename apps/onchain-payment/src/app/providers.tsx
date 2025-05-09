@@ -39,6 +39,20 @@ const config = getDefaultConfig({
 
 const queryClient = new QueryClient();
 
+const DonationFooter = () => (
+  <footer className="flex justify-center gap-1 py-4 text-sm">
+    <span>Show some love if you find it useful</span>
+    <a
+      href="https://donation.gdapps.studio/?amount=0.005"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="underline block"
+    >
+      Donation ❤️
+    </a>
+  </footer>
+);
+
 export const Providers = ({ children }: { children: ReactNode }) => {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
@@ -57,7 +71,12 @@ export const Providers = ({ children }: { children: ReactNode }) => {
                 theme={rainbowKitTheme}
                 initialChain={mainnet}
               >
-                <Suspense>{children}</Suspense>
+                <div className="h-screen flex flex-col">
+                  <div className="flex-1">
+                    <Suspense>{children}</Suspense>
+                  </div>
+                  <DonationFooter />
+                </div>
               </RainbowKitProvider>
             </QueryClientProvider>
           </WagmiProvider>
