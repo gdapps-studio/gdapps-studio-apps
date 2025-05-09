@@ -12,6 +12,8 @@ import Image from "next/image";
 export const truncateAddress = (address: string, length = 4) =>
   `${address.slice(0, length)}...${address.slice(-length)}`;
 
+const GDAPPS_STUDIO_ADDRESS = "0x964cbFD1B733CDd6ee6Cd6014ae96e96e3bE324f";
+
 export const PaymentCard = ({
   chainLogoSrc = "",
   isConnected = false,
@@ -42,6 +44,7 @@ export const PaymentCard = ({
     return `Pay ${amount} ${currency.toUpperCase()}`;
   };
 
+  const isGDappsCard = GDAPPS_STUDIO_ADDRESS === reciepientAddress;
   return (
     <Card
       scaleOnHover={false}
@@ -84,7 +87,11 @@ export const PaymentCard = ({
             <CardRow
               value={
                 <button onClick={onCopy} className="underline cursor-pointer">
-                  {truncateAddress(reciepientAddress, 8)}
+                  {isGDappsCard ? (
+                    <span>GDApps Studio</span>
+                  ) : (
+                    truncateAddress(reciepientAddress, 8)
+                  )}
                 </button>
               }
               label={"Payee"}

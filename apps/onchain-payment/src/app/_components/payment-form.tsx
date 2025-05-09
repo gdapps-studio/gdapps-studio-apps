@@ -97,7 +97,7 @@ export const PaymentForm = () => {
                     })}`
                   );
                   toast.success("Payment link copied to clipboard", {
-                    description: "ou can now share it with anyone",
+                    description: "You can now share it with anyone",
                   });
                 } else if (buttonClicked === "open") {
                   window.open(

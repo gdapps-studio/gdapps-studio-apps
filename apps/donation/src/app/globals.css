@@ -1,0 +1,2 @@
+@import "@gdapps-studio/ui/globals";
+@source "../../node_modules/@gdapps-studio/payment-card/src/*.{tsx,ts}";

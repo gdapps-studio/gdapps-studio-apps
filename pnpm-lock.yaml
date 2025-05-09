@@ -20,6 +20,9 @@ importers:
 
   apps/donation:
     dependencies:
+      '@gdapps-studio/payment-card':
+        specifier: workspace:*
+        version: link:../../packages/payment-card
       '@gdapps-studio/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -56,6 +59,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.1.0(react@19.1.0)
+      sonner:
+        specifier: ^2.0.3
+        version: 2.0.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       viem:
         specifier: 2.x
         version: 2.26.3(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.24.2)
