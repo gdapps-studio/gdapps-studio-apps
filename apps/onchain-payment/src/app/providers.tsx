@@ -20,10 +20,12 @@ import {
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from "@solana/web3.js";
+import { clusterApiUrl, Connection } from "@solana/web3.js";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { SolanaHooksProvider } from "@gio-shara/solana-hooks";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
+import { Footer } from "./_components/footer";
 
 const config = getDefaultConfig({
   appName: RAINBOW_KIT_APP_NAME,
@@ -39,27 +41,20 @@ const config = getDefaultConfig({
 
 const queryClient = new QueryClient();
 
-const DonationFooter = () => (
-  <footer className="flex justify-center gap-1 py-4 text-sm">
-    <span>Show some love if you find it useful</span>
-    <a
-      href="https://donation.gdapps.studio/?amount=0.005"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="underline block"
-    >
-      Donation ❤️
-    </a>
-  </footer>
-);
+const DEFAULT_SOLANA_NETWORK =
+  process.env.NODE_ENV === "development"
+    ? WalletAdapterNetwork.Devnet
+    : WalletAdapterNetwork.Mainnet;
+const ENDPOINT = clusterApiUrl(DEFAULT_SOLANA_NETWORK);
+
+const connection = new Connection(ENDPOINT, "confirmed");
 
 export const Providers = ({ children }: { children: ReactNode }) => {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const endpoint = useMemo(() => ENDPOINT, [DEFAULT_SOLANA_NETWORK]);
   const wallets = useMemo(
     () => [new UnsafeBurnerWalletAdapter()],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [network]
+    [DEFAULT_SOLANA_NETWORK]
   );
   return (
     <ConnectionProvider endpoint={endpoint}>
@@ -67,17 +62,19 @@ export const Providers = ({ children }: { children: ReactNode }) => {
         <WalletModalProvider>
           <WagmiProvider config={config}>
             <QueryClientProvider client={queryClient}>
-              <RainbowKitProvider
-                theme={rainbowKitTheme}
-                initialChain={mainnet}
-              >
-                <div className="h-screen flex flex-col">
-                  <div className="flex-1">
-                    <Suspense>{children}</Suspense>
+              <SolanaHooksProvider config={{ connection }}>
+                <RainbowKitProvider
+                  theme={rainbowKitTheme}
+                  initialChain={mainnet}
+                >
+                  <div className="h-screen flex flex-col">
+                    <div className="flex-1">
+                      <Suspense>{children}</Suspense>
+                    </div>
+                    <Footer />
                   </div>
-                  <DonationFooter />
-                </div>
-              </RainbowKitProvider>
+                </RainbowKitProvider>
+              </SolanaHooksProvider>
             </QueryClientProvider>
           </WagmiProvider>
         </WalletModalProvider>

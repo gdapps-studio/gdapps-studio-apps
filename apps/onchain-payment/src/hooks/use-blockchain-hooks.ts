@@ -2,7 +2,8 @@ import {
   UseAccount,
   UseBalance,
   UseConnectModal,
-  UseMetadataData,
+  UseDisconnect,
+  UseNativeCurrencyMetadata,
   UseTransaction,
 } from "../hooks/blockchain-hooks/hooks.type";
 import * as ethereumHooks from "../hooks/blockchain-hooks/ethereum";
@@ -12,10 +13,11 @@ import { useExtractSearchParams } from "./use-extract-search-params";
 
 interface Hooks {
   useBalance: UseBalance;
-  useMetadata: UseMetadataData;
+  useNativeCurrencyMetadata: UseNativeCurrencyMetadata;
   useAccount: UseAccount;
   useTransaction: UseTransaction;
   useConnectModal: UseConnectModal;
+  useDisconnect: UseDisconnect;
 }
 
 export const blockchainHooks: Record<ChainUnion, Hooks> = {

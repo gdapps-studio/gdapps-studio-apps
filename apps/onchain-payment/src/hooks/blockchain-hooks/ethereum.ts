@@ -2,24 +2,39 @@ import {
   UseAccount,
   UseBalance,
   UseConnectModal,
+  UseDisconnect,
+  UseNativeCurrencyMetadata,
   UseTransaction,
 } from "./hooks.type";
-import { useSendTransaction, useAccount as useWagmiAccount } from "wagmi";
+import {
+  useSendTransaction,
+  useAccount as useWagmiAccount,
+  useDisconnect as useDisconnectWagmi,
+  useBalance as useWagmiBalance,
+} from "wagmi";
 import { useConnectModal as useRainbowConnectModal } from "@rainbow-me/rainbowkit";
-import { Address, parseEther } from "viem";
+import { Address, formatUnits, parseEther } from "viem";
 
 export const useBalance: UseBalance = () => {
+  const { address } = useWagmiAccount();
+
+  const { data: balance } = useWagmiBalance({
+    address,
+  });
+  const { value = 0n, decimals = 18 } = balance || {};
   return {
     data: {
-      balance: 0,
+      balance: +formatUnits(value, decimals),
     },
     isPending: false,
   };
 };
 
-export const useMetadata = () => {
+export const useNativeCurrencyMetadata: UseNativeCurrencyMetadata = () => {
   return {
-    data: {} as any,
+    data: {
+      symbol: "ETH",
+    },
     isPending: false,
   };
 };
@@ -55,5 +70,12 @@ export const useConnectModal: UseConnectModal = () => {
     openConnectModal: () => {
       openConnectModal?.();
     },
+  };
+};
+
+export const useDisconnect: UseDisconnect = () => {
+  const { disconnect } = useDisconnectWagmi();
+  return () => {
+    disconnect();
   };
 };

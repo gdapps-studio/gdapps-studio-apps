@@ -14,7 +14,7 @@ export type UseBalance = () => PickedUseQueryResult<{
   balance: number;
 }>;
 
-export type UseMetadataData = () => PickedUseQueryResult<{
+export type UseNativeCurrencyMetadata = () => PickedUseQueryResult<{
   symbol: string;
 }>;
 
@@ -36,3 +36,5 @@ export type UseTransaction = () => PickedUseMutationResult<
 export type UseConnectModal = () => {
   openConnectModal: () => void;
 };
+
+export type UseDisconnect = () => () => void;

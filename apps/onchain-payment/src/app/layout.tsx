@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "@gdapps-studio/ui/sonner";
+
 import { Providers } from "./providers";
+import { Toaster } from "@gdapps-studio/ui/sonner";
 
 export const metadata: Metadata = {
   title: "On Chain Payment | Secure and Easy Crypto Payments",

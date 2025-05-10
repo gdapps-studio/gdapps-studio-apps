@@ -12,7 +12,10 @@ import Image from "next/image";
 export const truncateAddress = (address: string, length = 4) =>
   `${address.slice(0, length)}...${address.slice(-length)}`;
 
-const GDAPPS_STUDIO_ADDRESS = "0x964cbFD1B733CDd6ee6Cd6014ae96e96e3bE324f";
+const GDAPPS_STUDIO_ADDRESSES = [
+  "0x964cbFD1B733CDd6ee6Cd6014ae96e96e3bE324f",
+  "7cbGX6WKXakVrDLpGWM4b9M29YbUqToEcyWu3VitmZQS",
+];
 
 export const PaymentCard = ({
   chainLogoSrc = "",
@@ -44,7 +47,7 @@ export const PaymentCard = ({
     return `Pay ${amount} ${currency.toUpperCase()}`;
   };
 
-  const isGDappsCard = GDAPPS_STUDIO_ADDRESS === reciepientAddress;
+  const isGDappsCard = GDAPPS_STUDIO_ADDRESSES.includes(reciepientAddress);
   return (
     <Card
       scaleOnHover={false}

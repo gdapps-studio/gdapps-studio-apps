@@ -9,21 +9,38 @@ import {
   UseAccount,
   UseBalance,
   UseConnectModal,
+  UseDisconnect,
+  UseNativeCurrencyMetadata,
   UseTransaction,
 } from "./hooks.type";
 import { parseUnits } from "viem";
-import { PublicKey, SystemProgram, Transaction } from "@solana/web3.js";
+import {
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+} from "@solana/web3.js";
+import { useBalance as useSolanaBalance } from "@gio-shara/solana-hooks";
 
 export const useBalance: UseBalance = () => {
+  const wallet = useAnchorWallet();
+
+  const { data: balance = 0 } = useSolanaBalance({
+    address: wallet?.publicKey ?? "",
+  });
   return {
-    data: {} as any,
+    data: {
+      balance: balance / LAMPORTS_PER_SOL,
+    },
     isPending: false,
   };
 };
 
-export const useMetadata = () => {
+export const useNativeCurrencyMetadata: UseNativeCurrencyMetadata = () => {
   return {
-    data: {} as any,
+    data: {
+      symbol: "SOL",
+    },
     isPending: false,
   };
 };
@@ -79,5 +96,13 @@ export const useConnectModal: UseConnectModal = () => {
     openConnectModal: () => {
       setVisible(true);
     },
+  };
+};
+
+export const useDisconnect: UseDisconnect = () => {
+  const { disconnect } = useWallet();
+
+  return () => {
+    disconnect();
   };
 };
