@@ -1,11 +1,11 @@
 "use client";
 
-import { PaymentCard } from "@gdapps-studio/payment-card";
+import { PaymentCard, truncateAddress } from "@gdapps-studio/payment-card";
 import { chainToImageSrc, ChainUnion, CurrencyUninon } from "@/constants";
-import { toast } from "sonner";
 import { useBlockchainHooks } from "@/hooks/use-blockchain-hooks";
 import { useCoingeckoPriceInUsd } from "@/hooks/use-coingecko-priceIn-usd";
 import { useSearchParams } from "next/navigation";
+import { successToast } from "@gdapps-studio/ui/sonner";
 
 type Config = {
   recipientAddress: string;
@@ -75,7 +75,10 @@ export default function Home() {
           onPayment={onPayment}
           onCopy={() =>
             navigator.clipboard.writeText(recipientAddress).then(() => {
-              toast.success("Address Copied");
+              successToast({
+                title: "Address Copied",
+                description: `${truncateAddress(recipientAddress)} Copied to clipboard`,
+              });
             })
           }
         />
