@@ -20,7 +20,9 @@ export const AmountInTokenAndUsd = ({
       {priceLoading ? (
         <LoadingSpinner />
       ) : (
-        <span className="text-foreground/80">($${amountInUsd.toFixed(2)})</span>
+        <span className="text-foreground/80 whitespace-nowrap">
+          (${amountInUsd.toFixed(2)})
+        </span>
       )}
     </div>
   );
