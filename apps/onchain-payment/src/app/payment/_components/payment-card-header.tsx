@@ -35,7 +35,7 @@ export default function PaymentCardHeader({
   const disconnect = useDisconnect();
 
   return (
-    <header className="max-auto fixed top-5 left-1/2 z-50 container flex -translate-x-1/2 items-center justify-between shadow">
+    <header className="fixed top-5 left-1/2 z-50 container mx-auto flex -translate-x-1/2 items-center justify-between px-2 shadow">
       <div></div>
       <div>
         <button
