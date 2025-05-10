@@ -144,7 +144,7 @@ const WhitelistGenerator: React.FC = () => {
       {error && <MyError error={error} />}
 
       <div className="flex justify-center">
-        <Button onClick={generateTree} className="mx-auto">
+        <Button size={"lg"} onClick={generateTree} className="mx-auto">
           Generate Merkle Tree
         </Button>
       </div>

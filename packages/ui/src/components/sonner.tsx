@@ -27,7 +27,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
 interface ToastProps {
   title: string;
-  description?: string;
+  description?: string | React.ReactNode;
 }
 
 const SuccessToast = ({ description, title }: ToastProps) => {

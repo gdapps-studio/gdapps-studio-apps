@@ -3,9 +3,9 @@ import {
   ClipboardDocumentIcon,
 } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { toast } from "sonner";
 import { downloadJson } from "../_utils/download-json";
 import { Button } from "@gdapps-studio/ui/button";
+import { successToast } from "@gdapps-studio/ui/sonner";
 export const CODE_SNIPPET_BLOCK_ID = "code-snippet-block";
 
 export type MerkleTreeJson = string;
@@ -21,10 +21,11 @@ export const CodeSnippet = ({
   const handleAction = (action: "copy" | "download") => {
     if (action === "copy") navigator.clipboard.writeText(merkleTree);
     else if (action === "download") downloadJson(merkleTree);
-    toast("Donation ❤️", {
+    successToast({
+      title: "JSON copied to clipboard",
       description: (
-        <div className="flex text-white justify-center gap-1 py-4 text-sm">
-          <span>Show some love if you find it useful</span>
+        <>
+          <span className="mr-1">Show some love if you find it useful</span>
           <a
             href="https://donation.gdapps.studio/?amount=0.005"
             target="_blank"
@@ -33,7 +34,7 @@ export const CodeSnippet = ({
           >
             Donation ❤️
           </a>
-        </div>
+        </>
       ),
     });
   };
