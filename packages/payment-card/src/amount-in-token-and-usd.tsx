@@ -12,11 +12,16 @@ export const AmountInTokenAndUsd = ({
   currency: string | undefined;
 }) => {
   return (
-    <div className="relative flex items-center gap-2">
+    <div className="relative flex flex-col md:flex-row md:items-center gap-0.5 md:gap-2">
       <span>
         {amount} {currency.toUpperCase()}
       </span>
-      {priceLoading ? <LoadingSpinner /> : `($${amountInUsd.toFixed(2)})`}
+
+      {priceLoading ? (
+        <LoadingSpinner />
+      ) : (
+        <span className="text-foreground/80">($${amountInUsd.toFixed(2)})</span>
+      )}
     </div>
   );
 };
