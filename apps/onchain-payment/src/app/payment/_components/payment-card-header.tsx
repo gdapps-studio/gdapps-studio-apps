@@ -22,7 +22,7 @@ export default function PaymentCardHeader({
     useNativeCurrencyMetadata,
     useDisconnect,
     useConnectModal,
-  } = useBlockchainHooks();
+  } = useBlockchainHooks({ chain });
   const { data: metadata } = useNativeCurrencyMetadata();
   const { openConnectModal } = useConnectModal();
 

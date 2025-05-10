@@ -9,7 +9,6 @@ import {
 import * as ethereumHooks from "../hooks/blockchain-hooks/ethereum";
 import * as solanaHooks from "../hooks/blockchain-hooks/solana";
 import { ChainUnion } from "../constants";
-import { useExtractSearchParams } from "./use-extract-search-params";
 
 interface Hooks {
   useBalance: UseBalance;
@@ -25,9 +24,14 @@ export const blockchainHooks: Record<ChainUnion, Hooks> = {
   solana: { ...solanaHooks },
 };
 
-export const useBlockchainHooks = () => {
-  const { chain, isSupportedChain } = useExtractSearchParams();
-  if (!isSupportedChain) throw new Error("Chain is not supported");
+export const useEthereumHooks = () => {
+  return { ...blockchainHooks.ethereum };
+};
 
-  return blockchainHooks[chain];
+export const useSolanaHooks = () => {
+  return { ...blockchainHooks.solana };
+};
+
+export const useBlockchainHooks = ({ chain }: { chain: ChainUnion }) => {
+  return { ...blockchainHooks[chain] };
 };

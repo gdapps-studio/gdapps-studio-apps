@@ -23,7 +23,9 @@ const PayPage = () => {
     isPaymentRequestParamsValid,
   } = useExtractSearchParams();
 
-  const { useAccount, useConnectModal, useTransaction } = useBlockchainHooks();
+  const { useAccount, useConnectModal, useTransaction } = useBlockchainHooks({
+    chain,
+  });
   const { openConnectModal } = useConnectModal();
 
   const { data: account } = useAccount();

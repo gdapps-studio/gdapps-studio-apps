@@ -15,8 +15,12 @@ import {
   PaymentFormSchema,
   paymentFormSchema,
 } from "./payment-schema";
-import { chainToDefaultCurrency, chainToPlaceholder } from "@/constants";
-import { FormEvent, ReactNode } from "react";
+import {
+  chainToDefaultCurrency,
+  chainToPlaceholder,
+  ChainUnion,
+} from "@/constants";
+import { FormEvent, ReactNode, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -27,7 +31,38 @@ import { ExternalLink } from "lucide-react";
 import { buildPaymentPagePath } from "../_utils/build-query-parameters";
 import { successToast } from "@gdapps-studio/ui/sonner";
 import { ChainSelector } from "./chain-selector";
-import { CurrencySelectorSelector } from "./currency-selector";
+import { useEthereumHooks, useSolanaHooks } from "@/hooks/use-blockchain-hooks";
+
+const usePaymentFormBlockchainHooks = ({ chain }: { chain: ChainUnion }) => {
+  const {
+    useAccount: useEthereumAccount,
+    useConnectModal: useEthereumConnect,
+    useDisconnect: useEthereumDisconnect,
+  } = useEthereumHooks();
+  const {
+    useAccount: useSolanaAccount,
+    useConnectModal: useSolanaConnect,
+    useDisconnect: useSolanaDisconnect,
+  } = useSolanaHooks();
+  const { data: ethereumAccount } = useEthereumAccount();
+  const { address: ethereumAddress, isConnected: isEthereumConnected } =
+    ethereumAccount ?? {};
+  const { data: solanaAccount } = useSolanaAccount();
+  const { address: solanaAddress, isConnected: isSolanaConnected } =
+    solanaAccount ?? {};
+
+  const { openConnectModal: ethereumConnect } = useEthereumConnect();
+  const { openConnectModal: solanaConnect } = useSolanaConnect();
+
+  const solanaDisconnect = useEthereumDisconnect();
+  const ethereumDisconnect = useSolanaDisconnect();
+  return {
+    address: chain === "ethereum" ? ethereumAddress : solanaAddress,
+    isConnected: chain === "ethereum" ? isEthereumConnected : isSolanaConnected,
+    openConnectModal: chain === "ethereum" ? ethereumConnect : solanaConnect,
+    disconnect: chain === "ethereum" ? solanaDisconnect : ethereumDisconnect,
+  };
+};
 
 const FormItemLabelAndDescription = ({
   input,
@@ -35,7 +70,7 @@ const FormItemLabelAndDescription = ({
   description,
 }: {
   input: ReactNode;
-  label: string;
+  label: ReactNode;
   description?: string;
 }) => (
   <FormItem>
@@ -52,7 +87,7 @@ export const PaymentForm = () => {
   });
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    form.handleSubmit(({ address, amount, chain, currency }) => {
+    form.handleSubmit(({ address, amount, chain }) => {
       // @ts-expect-error nativeEvent.submitter is not defined in the type
       const buttonClicked = e.nativeEvent.submitter?.value;
       if (buttonClicked === "copy") {
@@ -62,7 +97,7 @@ export const PaymentForm = () => {
             address,
             amount,
             chain,
-            currency,
+            currency: chainToDefaultCurrency[chain],
           })}`,
         );
 
@@ -76,7 +111,7 @@ export const PaymentForm = () => {
             address,
             amount,
             chain,
-            currency,
+            currency: chainToDefaultCurrency[chain],
           }),
         );
       }
@@ -84,6 +119,18 @@ export const PaymentForm = () => {
   };
 
   const chain = form.watch("chain");
+  const { address, disconnect, isConnected, openConnectModal } =
+    usePaymentFormBlockchainHooks({ chain });
+
+  useEffect(() => {
+    if (isConnected && address) {
+      form.setValue("address", address, {
+        shouldValidate: true,
+      });
+    } else {
+      form.setValue("address", "");
+    }
+  }, [address, isConnected]);
 
   return (
     <Card
@@ -104,7 +151,20 @@ export const PaymentForm = () => {
                   input={
                     <Input placeholder={chainToPlaceholder[chain]} {...field} />
                   }
-                  label="Payee Wallet Address (who to pay)"
+                  label={
+                    <div className="flex w-full items-center justify-between">
+                      <span>Recipient Wallet Address</span>
+                      <button
+                        onClick={() => {
+                          if (!isConnected) openConnectModal();
+                          else disconnect();
+                        }}
+                        className="text-foreground underline"
+                      >
+                        {isConnected ? "Remove" : "Use My Wallet"}
+                      </button>
+                    </div>
+                  }
                 />
               )}
             />
@@ -120,35 +180,33 @@ export const PaymentForm = () => {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="chain"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Chain</FormLabel>
-                  <FormControl>
+            <div className="flex flex-col gap-2">
+              <FormLabel>Payment Network & Currency</FormLabel>
+
+              <FormField
+                control={form.control}
+                name="chain"
+                render={({ field }) => (
+                  <FormItem className="w-full">
                     <ChainSelector
                       onSelected={(chain) => {
-                        form.setValue(
-                          "currency",
-                          chainToDefaultCurrency[chain],
-                        );
+                        // form.setValue(
+                        //   "currency",
+                        //   chainToDefaultCurrency[chain],
+                        // );
                         form.setValue("address", "");
                         field.onChange(chain);
                       }}
                       selectedChain={field.value}
                     />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="currency"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Currency</FormLabel>
-                  <FormControl>
+                  </FormItem>
+                )}
+              />
+              {/* <FormField
+                control={form.control}
+                name="currency"
+                render={({ field }) => (
+                  <FormItem className="w-full">
                     <CurrencySelectorSelector
                       onSelected={(currency) => {
                         field.onChange(currency);
@@ -156,10 +214,11 @@ export const PaymentForm = () => {
                       selectedChain={form.getValues("chain")}
                       selectedCurrency={field.value}
                     />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+                  </FormItem>
+                )}
+              /> */}
+            </div>
+
             <div className="flex flex-col gap-5 md:flex-row md:items-center">
               <Button
                 value="copy"
