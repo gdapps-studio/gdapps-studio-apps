@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "@gdapps-studio/ui/button";
 import {
   FormField,
@@ -17,10 +18,10 @@ import {
 } from "./payment-schema";
 import {
   chainToDefaultCurrency,
+  chainToImageSrc,
   chainToPlaceholder,
-  ChainUnion,
 } from "@/constants";
-import { FormEvent, ReactNode, useEffect } from "react";
+import { FormEvent, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -31,54 +32,7 @@ import { ExternalLink } from "lucide-react";
 import { buildPaymentPagePath } from "../_utils/build-query-parameters";
 import { successToast } from "@gdapps-studio/ui/sonner";
 import { ChainSelector } from "./chain-selector";
-import { useEthereumHooks, useSolanaHooks } from "@/hooks/use-blockchain-hooks";
-
-const usePaymentFormBlockchainHooks = ({ chain }: { chain: ChainUnion }) => {
-  const {
-    useAccount: useEthereumAccount,
-    useConnectModal: useEthereumConnect,
-    useDisconnect: useEthereumDisconnect,
-  } = useEthereumHooks();
-  const {
-    useAccount: useSolanaAccount,
-    useConnectModal: useSolanaConnect,
-    useDisconnect: useSolanaDisconnect,
-  } = useSolanaHooks();
-  const { data: ethereumAccount } = useEthereumAccount();
-  const { address: ethereumAddress, isConnected: isEthereumConnected } =
-    ethereumAccount ?? {};
-  const { data: solanaAccount } = useSolanaAccount();
-  const { address: solanaAddress, isConnected: isSolanaConnected } =
-    solanaAccount ?? {};
-
-  const { openConnectModal: ethereumConnect } = useEthereumConnect();
-  const { openConnectModal: solanaConnect } = useSolanaConnect();
-
-  const solanaDisconnect = useEthereumDisconnect();
-  const ethereumDisconnect = useSolanaDisconnect();
-  return {
-    address: chain === "ethereum" ? ethereumAddress : solanaAddress,
-    isConnected: chain === "ethereum" ? isEthereumConnected : isSolanaConnected,
-    openConnectModal: chain === "ethereum" ? ethereumConnect : solanaConnect,
-    disconnect: chain === "ethereum" ? solanaDisconnect : ethereumDisconnect,
-  };
-};
-
-const FormItemLabelAndDescription = ({
-  input,
-  label,
-  description,
-}: {
-  input: ReactNode;
-  label: ReactNode;
-  description?: string;
-}) => (
-  <FormItem>
-    <FormLabel>{label}</FormLabel>
-    <FormControl>{input}</FormControl>
-    {description ? <FormDescription>{description}</FormDescription> : null}
-  </FormItem>
-);
+import { usePaymentFormBlockchainHooks } from "@/hooks/use-payment-form-blockchain-hooks";
 
 export const PaymentForm = () => {
   const form = useForm<PaymentFormSchema>({
@@ -147,11 +101,8 @@ export const PaymentForm = () => {
               control={form.control}
               name="address"
               render={({ field }) => (
-                <FormItemLabelAndDescription
-                  input={
-                    <Input placeholder={chainToPlaceholder[chain]} {...field} />
-                  }
-                  label={
+                <FormItem>
+                  <FormLabel>
                     <div className="flex w-full items-center justify-between">
                       <span>Recipient Wallet Address</span>
                       <button
@@ -161,22 +112,38 @@ export const PaymentForm = () => {
                         }}
                         className="text-foreground underline"
                       >
-                        {isConnected ? "Remove" : "Use My Wallet"}
+                        <span className="flex items-center gap-1">
+                          {isConnected ? "Remove" : "Use My Wallet"}
+                          <Image
+                            src={chainToImageSrc[chain]}
+                            alt={`${chainToImageSrc[chain]} Chain Logo`}
+                            width={14}
+                            height={14}
+                            className="rounded-full bg-white"
+                          />
+                        </span>
                       </button>
                     </div>
-                  }
-                />
+                  </FormLabel>
+                  <FormControl>
+                    <Input placeholder={chainToPlaceholder[chain]} {...field} />
+                  </FormControl>
+                </FormItem>
               )}
             />
             <FormField
               control={form.control}
               name="amount"
               render={({ field }) => (
-                <FormItemLabelAndDescription
-                  input={<Input placeholder={"0"} {...field} />}
-                  description="Enter how much you want to receive"
-                  label="Amount"
-                />
+                <FormItem>
+                  <FormLabel>Amount</FormLabel>
+                  <FormControl>
+                    <Input placeholder={"0"} {...field} />
+                  </FormControl>
+                  <FormDescription>
+                    Enter how much you want to receive
+                  </FormDescription>
+                </FormItem>
               )}
             />
 
@@ -219,7 +186,7 @@ export const PaymentForm = () => {
               /> */}
             </div>
 
-            <div className="flex flex-col gap-5 md:flex-row md:items-center">
+            <div className="flex flex-col gap-5 pt-4 md:flex-row md:items-center">
               <Button
                 value="copy"
                 className="md:flex-1"
@@ -236,7 +203,7 @@ export const PaymentForm = () => {
                 variant={"outline"}
               >
                 <ExternalLink className="absolute right-5 size-4" />
-                <span>Preview in Tab</span>
+                <span>Open Payment</span>
               </Button>
             </div>
           </form>
