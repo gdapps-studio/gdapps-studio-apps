@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: "On Chain Payment",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "On Chain Payment",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title: "On Chain Payment | Secure and Easy Crypto Payments",
     description:
       "A secure and efficient infrastructure for requesting and processing cryptocurrency payments on Solana and Ethereum networks.",
-    images: ["/og-image.jpg"],
+    images: ["/opengraph-image.png"],
   },
 };
 
