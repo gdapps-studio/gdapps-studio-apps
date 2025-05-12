@@ -33,6 +33,8 @@ import { buildPaymentPagePath } from "../_utils/build-query-parameters";
 import { successToast } from "@gdapps-studio/ui/sonner";
 import { ChainSelector } from "./chain-selector";
 import { usePaymentFormBlockchainHooks } from "@/hooks/use-payment-form-blockchain-hooks";
+import { NumericFormat } from "react-number-format";
+import clsx from "clsx";
 
 export const PaymentForm = () => {
   const form = useForm<PaymentFormSchema>({
@@ -86,6 +88,8 @@ export const PaymentForm = () => {
     }
   }, [address, isConnected]);
 
+  console.log(form.getFieldState("amount").error?.message);
+
   return (
     <Card
       className="mx-auto flex w-full max-w-xs flex-col gap-6 px-6 py-4 md:max-w-xl md:px-12 md:py-10"
@@ -138,7 +142,23 @@ export const PaymentForm = () => {
                 <FormItem>
                   <FormLabel>Amount</FormLabel>
                   <FormControl>
-                    <Input placeholder={"0"} {...field} />
+                    <NumericFormat
+                      suffix={chain === "ethereum" ? " Ξ" : " SOL"}
+                      placeholder={"0"}
+                      className={clsx(
+                        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-11 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+                      )}
+                      decimalScale={chain === "ethereum" ? 18 : 9}
+                      decimalSeparator={"."}
+                      onValueChange={({ value }) => {
+                        field.onChange(value);
+                      }}
+                      allowLeadingZeros={false}
+                      allowNegative={false}
+                      thousandSeparator={","}
+                    />
                   </FormControl>
                   <FormDescription>
                     Enter how much you want to receive
