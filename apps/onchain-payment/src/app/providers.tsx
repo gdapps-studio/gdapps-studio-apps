@@ -18,7 +18,6 @@ import {
   ConnectionProvider,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
-import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { UnsafeBurnerWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl, Connection } from "@solana/web3.js";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
@@ -33,7 +32,7 @@ const config = getDefaultConfig({
   chains: [mainnet],
   transports: {
     [mainnet.id]: http(
-      `${RAINBOW_KIT_BASE_PRC_URL}/${process.env.NEXT_PUBLIC_INFURA_KEY}`
+      `${RAINBOW_KIT_BASE_PRC_URL}/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
     ),
   },
   ssr: true,
@@ -41,23 +40,19 @@ const config = getDefaultConfig({
 
 const queryClient = new QueryClient();
 
-const DEFAULT_SOLANA_NETWORK =
+const QUICK_NODE_BASE_URL =
+  "https://fluent-soft-violet.solana-mainnet.quiknode.pro";
+const ENDPOINT =
   process.env.NODE_ENV === "development"
-    ? WalletAdapterNetwork.Devnet
-    : WalletAdapterNetwork.Mainnet;
-const ENDPOINT = clusterApiUrl(DEFAULT_SOLANA_NETWORK);
+    ? clusterApiUrl("devnet")
+    : `${QUICK_NODE_BASE_URL}/${process.env.NEXT_PUBLIC_QUICKNODE_KEY}`;
 
 const connection = new Connection(ENDPOINT, "confirmed");
 
 export const Providers = ({ children }: { children: ReactNode }) => {
-  const endpoint = useMemo(() => ENDPOINT, [DEFAULT_SOLANA_NETWORK]);
-  const wallets = useMemo(
-    () => [new UnsafeBurnerWalletAdapter()],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [DEFAULT_SOLANA_NETWORK]
-  );
+  const wallets = useMemo(() => [new UnsafeBurnerWalletAdapter()], []);
   return (
-    <ConnectionProvider endpoint={endpoint}>
+    <ConnectionProvider endpoint={ENDPOINT}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <WagmiProvider config={config}>
@@ -67,7 +62,7 @@ export const Providers = ({ children }: { children: ReactNode }) => {
                   theme={rainbowKitTheme}
                   initialChain={mainnet}
                 >
-                  <div className="h-screen flex flex-col">
+                  <div className="flex h-screen flex-col">
                     <div className="flex-1">
                       <Suspense>{children}</Suspense>
                     </div>
