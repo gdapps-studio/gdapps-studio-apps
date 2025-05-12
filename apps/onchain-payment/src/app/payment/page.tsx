@@ -29,7 +29,7 @@ const PayPage = () => {
   const { openConnectModal } = useConnectModal();
 
   const { data: account } = useAccount();
-  const { isConnected } = account ?? {};
+  const { isConnected, address } = account ?? {};
 
   const { mutate: sendTransaction } = useTransaction();
 
@@ -46,12 +46,14 @@ const PayPage = () => {
     });
   };
 
+  const isUserSendingToSelf = recipientAddress === address;
+
   return (
     <div className="mx-auto flex flex-col items-center justify-center pt-44">
       <PaymentCardHeader chain={chain} />
       {isPaymentRequestParamsValid ? (
         <>
-          <div className="mx-auto w-full max-w-xl">
+          <div className="mx-auto w-full max-w-xl space-y-2">
             <PaymentCard
               chainLogoSrc={chainToImageSrc[chain]}
               amount={amount}
@@ -72,6 +74,11 @@ const PayPage = () => {
                 })
               }
             />
+            {isUserSendingToSelf ? (
+              <span className="text-sm text-amber-300">
+                Warning: you are sending funds to your own address
+              </span>
+            ) : null}
           </div>
         </>
       ) : (
