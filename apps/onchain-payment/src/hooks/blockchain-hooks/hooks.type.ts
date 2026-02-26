@@ -38,3 +38,12 @@ export type UseConnectModal = () => {
 };
 
 export type UseDisconnect = () => () => void;
+
+export type UseTokenTransfer = () => PickedUseMutationResult<
+  {},
+  { recipient: string; amount: string }
+>;
+
+export type UseTokenBalance = () => PickedUseQueryResult<{
+  balance: number;
+}>;
