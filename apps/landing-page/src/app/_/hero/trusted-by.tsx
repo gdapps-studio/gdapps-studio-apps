@@ -22,18 +22,18 @@ const logos = [
     height: 36,
   },
   {
-    href: "https://beta.fractality.xyz/",
-    src: "/assets/fractility.png",
-    alt: "Fractility Logo",
-    width: 40,
-    height: 34,
-  },
-  {
     href: "https://www.fantium.com/",
     src: "/assets/fantium.png",
     alt: "Fantium Logo",
     width: 164,
     height: 37,
+  },
+  {
+    href: "https://beta.fractality.xyz/",
+    src: "/assets/fractility.png",
+    alt: "Fractility Logo",
+    width: 40,
+    height: 34,
   },
 ];
 
@@ -45,9 +45,9 @@ export const TrustedBy = () => {
   });
 
   return (
-    // @ts-expect-error not sure why this is not working
     <animated.div
       style={animationProps}
+      // @ts-expect-error not sure why it complains
       className="mt-6 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
     >
       <span className="font-bold text-gray-400 text-xl md:text-2xl">
