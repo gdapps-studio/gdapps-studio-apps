@@ -45,9 +45,9 @@ export const TrustedBy = () => {
   });
 
   return (
+    // @ts-expect-error not sure why it complains
     <animated.div
       style={animationProps}
-      // @ts-expect-error not sure why it complains
       className="mt-6 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between"
     >
       <span className="font-bold text-gray-400 text-xl md:text-2xl">
