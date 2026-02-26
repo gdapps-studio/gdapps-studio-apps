@@ -32,12 +32,12 @@
   "devDependencies": {
     "@gdapps-studio/eslint-config": "workspace:*",
     "@gdapps-studio/typescript-config": "workspace:*",
-    "@types/node": "^22.14.0",
+    "@types/node": "^25.3.2",
     "@types/nodemailer": "^6.4.17",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
     "@types/three": "^0.169.0",
-    "eslint": "^9.24.0",
-    "typescript": "5.8.2"
+    "eslint": "^10.0.2",
+    "typescript": "5.9.3"
   }
 }
