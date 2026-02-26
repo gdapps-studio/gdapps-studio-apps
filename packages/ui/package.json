@@ -29,11 +29,11 @@
     "@gdapps-studio/eslint-config": "workspace:*",
     "@gdapps-studio/typescript-config": "workspace:*",
     "@turbo/gen": "^2.5.0",
-    "@types/node": "^22.14.0",
+    "@types/node": "^25.3.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "eslint": "^9.24.0",
-    "typescript": "5.8.2"
+    "typescript": "5.9.3"
   },
   "dependencies": {
     "@gdapps-studio/assets": "workspace:*",
