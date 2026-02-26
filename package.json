@@ -1,6 +1,7 @@
 {
   "name": "gdapps-studio-apps",
   "private": true,
+  "description": "https://gdapps.studio",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
