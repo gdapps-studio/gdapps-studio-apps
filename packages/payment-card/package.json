@@ -23,7 +23,7 @@
   "devDependencies": {
     "@gdapps-studio/eslint-config": "workspace:*",
     "@gdapps-studio/typescript-config": "workspace:*",
-    "@rainbow-me/rainbowkit": "^2.2.4",
+    "@rainbow-me/rainbowkit": "^2.2.10",
     "@turbo/gen": "^2.5.0",
     "@types/node": "^22.14.0",
     "@types/react": "19.1.0",
