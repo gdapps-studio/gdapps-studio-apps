@@ -1,0 +1,234 @@
+version: 2
+
+updates:
+  # Root dependencies (turbo, prettier, typescript)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    groups:
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  # Apps
+  - package-ecosystem: "npm"
+    directory: "/apps/onchain-payment"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "app:onchain-payment"
+    groups:
+      nextjs:
+        patterns:
+          - "next"
+          - "@next/*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      web3:
+        patterns:
+          - "wagmi*"
+          - "viem*"
+          - "@rainbow-me/*"
+          - "ethers"
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/apps/donation"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "app:donation"
+    groups:
+      nextjs:
+        patterns:
+          - "next"
+          - "@next/*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      web3:
+        patterns:
+          - "wagmi*"
+          - "viem*"
+          - "@rainbow-me/*"
+          - "ethers"
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/apps/landing-page"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "app:landing-page"
+    groups:
+      nextjs:
+        patterns:
+          - "next"
+          - "@next/*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      web3:
+        patterns:
+          - "wagmi*"
+          - "viem*"
+          - "@rainbow-me/*"
+          - "ethers"
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/apps/merkle-tree-generator"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "app:merkle-tree-generator"
+    groups:
+      nextjs:
+        patterns:
+          - "next"
+          - "@next/*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      web3:
+        patterns:
+          - "wagmi*"
+          - "viem*"
+          - "@rainbow-me/*"
+          - "ethers"
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  # Packages
+  - package-ecosystem: "npm"
+    directory: "/packages/ui"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "pkg:ui"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/payment-card"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "pkg:payment-card"
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      web3:
+        patterns:
+          - "wagmi*"
+          - "viem*"
+          - "@rainbow-me/*"
+          - "ethers"
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/eslint-config"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "pkg:eslint-config"
+    groups:
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/typescript-config"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "pkg:typescript-config"
+    groups:
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
+
+  - package-ecosystem: "npm"
+    directory: "/packages/assets"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "pkg:assets"
+    groups:
+      tooling:
+        patterns:
+          - "typescript"
+          - "eslint*"
+          - "prettier"
+          - "@types/*"
