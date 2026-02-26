@@ -20,6 +20,8 @@ import {
   chainToDefaultCurrency,
   chainToImageSrc,
   chainToPlaceholder,
+  currencyToImageSrc,
+  currencyToSuffix,
 } from "@/constants";
 import { FormEvent, useEffect } from "react";
 import {
@@ -35,6 +37,7 @@ import { ChainSelector } from "./chain-selector";
 import { usePaymentFormBlockchainHooks } from "@/hooks/use-payment-form-blockchain-hooks";
 import { NumericFormat } from "react-number-format";
 import clsx from "clsx";
+import { CurrencySelectorSelector } from "./currency-selector";
 
 export const PaymentForm = () => {
   const form = useForm<PaymentFormSchema>({
@@ -67,7 +70,7 @@ export const PaymentForm = () => {
             address,
             amount,
             chain,
-            currency: chainToDefaultCurrency[chain],
+            currency,
           }),
         );
       }
@@ -75,6 +78,7 @@ export const PaymentForm = () => {
   };
 
   const chain = form.watch("chain");
+  const currency = form.watch("currency");
   const { address, disconnect, isConnected, openConnectModal } =
     usePaymentFormBlockchainHooks({ chain });
 
@@ -87,8 +91,6 @@ export const PaymentForm = () => {
       form.setValue("address", "");
     }
   }, [address, isConnected]);
-
-  console.log(form.getFieldState("amount").error?.message);
 
   return (
     <Card
@@ -139,26 +141,35 @@ export const PaymentForm = () => {
               control={form.control}
               name="amount"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="relative">
                   <FormLabel>Amount</FormLabel>
-                  <FormControl>
-                    <NumericFormat
-                      suffix={chain === "ethereum" ? " Ξ" : " SOL"}
-                      placeholder={"0"}
-                      className={clsx(
-                        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-11 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-                        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-                        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-                      )}
-                      decimalScale={chain === "ethereum" ? 18 : 9}
-                      decimalSeparator={"."}
-                      onValueChange={({ value }) => {
-                        field.onChange(value);
-                      }}
-                      allowLeadingZeros={false}
-                      allowNegative={false}
-                      thousandSeparator={","}
-                    />
+                  <FormControl className="relative">
+                    <div>
+                      <NumericFormat
+                        placeholder={"0"}
+                        suffix={currencyToSuffix[currency]}
+                        className={clsx(
+                          "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-11 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+                          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+                          "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+                        )}
+                        decimalScale={chain === "ethereum" ? 18 : 9}
+                        decimalSeparator={"."}
+                        onValueChange={({ value }) => {
+                          field.onChange(value);
+                        }}
+                        allowLeadingZeros={false}
+                        allowNegative={false}
+                        thousandSeparator={","}
+                      />
+                      <Image
+                        src={currencyToImageSrc[currency]}
+                        alt={`${currency} image logo`}
+                        width={24}
+                        height={24}
+                        className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-white"
+                      />
+                    </div>
                   </FormControl>
                   <FormDescription>
                     Enter how much you want to receive
@@ -177,10 +188,10 @@ export const PaymentForm = () => {
                   <FormItem className="w-full">
                     <ChainSelector
                       onSelected={(chain) => {
-                        // form.setValue(
-                        //   "currency",
-                        //   chainToDefaultCurrency[chain],
-                        // );
+                        form.setValue(
+                          "currency",
+                          chainToDefaultCurrency[chain],
+                        );
                         form.setValue("address", "");
                         field.onChange(chain);
                       }}
@@ -189,7 +200,7 @@ export const PaymentForm = () => {
                   </FormItem>
                 )}
               />
-              {/* <FormField
+              <FormField
                 control={form.control}
                 name="currency"
                 render={({ field }) => (
@@ -203,7 +214,7 @@ export const PaymentForm = () => {
                     />
                   </FormItem>
                 )}
-              /> */}
+              />
             </div>
 
             <div className="flex flex-col gap-5 pt-4 md:flex-row md:items-center">
