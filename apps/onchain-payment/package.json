@@ -14,7 +14,7 @@
     "@gdapps-studio/ui": "workspace:*",
     "@gio-shara/solana-hooks": "^1.2.0",
     "@hookform/resolvers": "^5.0.1",
-    "@rainbow-me/rainbowkit": "^2.2.4",
+    "@rainbow-me/rainbowkit": "^2.2.10",
     "@solana/wallet-adapter-base": "^0.9.25",
     "@solana/wallet-adapter-react": "^0.15.37",
     "@solana/wallet-adapter-react-ui": "^0.9.37",
@@ -30,8 +30,8 @@
     "react-hook-form": "^7.55.0",
     "react-number-format": "^5.4.4",
     "sonner": "^2.0.3",
-    "viem": "^2.26.3",
-    "wagmi": "^2.14.16",
+    "viem": "^2.46.3",
+    "wagmi": "^3.5.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
