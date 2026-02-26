@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@gdapps-studio/ui/card";
-import { animated, useSpring } from "@react-spring/web";
 import { useInView } from "react-intersection-observer";
 
 import { features } from "./constants";
@@ -26,15 +25,15 @@ const CoreValueCard: React.FC<CoreValueCardProps> = ({
     threshold: 0.1,
   });
 
-  const fadeIn = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateY(0)" : "translateY(20px)",
-    delay,
-  });
-
   return (
-    // @ts-expect-error not sure why this is not working
-    <animated.div ref={ref} style={fadeIn}>
+    <div
+      ref={ref}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.4s ease ${delay}ms, transform 0.4s ease ${delay}ms`,
+      }}
+    >
       <Card className={"flex-1 px-6 text-white min-h-full"}>
         <CardHeader>
           <div className="bg-primary max-w-max p-2 rounded mb-4">
@@ -48,7 +47,7 @@ const CoreValueCard: React.FC<CoreValueCardProps> = ({
           </p>
         </CardContent>
       </Card>
-    </animated.div>
+    </div>
   );
 };
 
