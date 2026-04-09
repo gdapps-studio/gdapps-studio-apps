@@ -6,8 +6,8 @@ export const Logo = ({ width = 168, height = 27.375 }) => (
     <Image
       src={logoMediumDark}
       width={width}
-      draggable="false"
       height={height}
+      draggable="false"
       alt="GDapps Logo Medium Dark"
     />
   </div>
