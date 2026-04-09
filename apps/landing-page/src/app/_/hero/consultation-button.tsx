@@ -5,7 +5,7 @@ import { animated, config, useSpring } from "@react-spring/web";
 import clsx from "clsx";
 
 const date = new Date();
-const CAL_BASE_URL = "https://cal.com/gdapps-studio";
+const CAL_BASE_URL = "https://cal.com/gdaps-studio";
 const calLink = `${CAL_BASE_URL}/30min?month=${date.getFullYear()}-${date.getUTCMonth() + 1}`;
 
 export const ConsultationButton = ({
