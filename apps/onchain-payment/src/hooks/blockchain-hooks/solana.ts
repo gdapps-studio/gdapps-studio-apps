@@ -11,9 +11,11 @@ import {
   UseConnectModal,
   UseDisconnect,
   UseNativeCurrencyMetadata,
+  UseTokenBalance,
+  UseTokenTransfer,
   UseTransaction,
 } from "./hooks.type";
-import { parseUnits } from "viem";
+import { Address, parseUnits } from "viem";
 import {
   LAMPORTS_PER_SOL,
   PublicKey,
@@ -21,6 +23,8 @@ import {
   Transaction,
 } from "@solana/web3.js";
 import { useBalance as useSolanaBalance } from "@gio-shara/solana-hooks";
+import { useReadUsdcDecimals, useWriteUsdcTransfer } from "@/generated";
+import { useWaitForTransactionReceipt } from "wagmi";
 
 export const useBalance: UseBalance = () => {
   const wallet = useAnchorWallet();
@@ -71,7 +75,7 @@ export const useTransaction: UseTransaction = () => {
           fromPubkey: wallet.publicKey,
           toPubkey: new PublicKey(to),
           lamports: lamportsToSend,
-        })
+        }),
       );
 
       transaction.feePayer = wallet.publicKey;
@@ -82,7 +86,7 @@ export const useTransaction: UseTransaction = () => {
       const signedTx = await wallet.signTransaction(transaction);
 
       const signature = await connection.sendRawTransaction(
-        signedTx.serialize()
+        signedTx.serialize(),
       );
       await connection.confirmTransaction(signature, "confirmed");
     },
@@ -104,5 +108,35 @@ export const useDisconnect: UseDisconnect = () => {
 
   return () => {
     disconnect();
+  };
+};
+
+export const useTokenTransfer: UseTokenTransfer = () => {
+  const {
+    writeContract: transferUsdc,
+    isPending,
+    data: hash,
+  } = useWriteUsdcTransfer();
+  const { data: decimals = 6 } = useReadUsdcDecimals();
+
+  const { isPending: isTransactionReceiptPending } =
+    useWaitForTransactionReceipt({
+      hash: hash,
+    });
+
+  return {
+    isPending: isTransactionReceiptPending || isPending,
+    mutate: async ({ amount, recipient }) => {
+      transferUsdc({
+        args: [recipient as Address, parseUnits(amount, decimals)],
+      });
+    },
+  };
+};
+
+export const useTokenBalance: UseTokenBalance = () => {
+  return {
+    data: {} as any,
+    isPending: false,
   };
 };

@@ -3,6 +3,7 @@ import {
   chainToCurrencies,
   ChainUnion,
   CurrencyUninon,
+  nativeCurrencies,
 } from "../constants";
 import { useSearchParams } from "next/navigation";
 
@@ -17,8 +18,6 @@ export const useExtractSearchParams = () => {
   ).toLowerCase() as CurrencyUninon;
   const isSupportedCurrency = chainToCurrencies[chain]?.includes(currency);
 
-  // console.log(chain, currency, isSupportedCurrency);
-
   return {
     address,
     amount,
@@ -30,5 +29,6 @@ export const useExtractSearchParams = () => {
       supportedChains.includes(chain) &&
       isSupportedCurrency,
     isSupportedChain: supportedChains.includes(chain),
+    isNativeCurrency: nativeCurrencies.includes(currency),
   };
 };

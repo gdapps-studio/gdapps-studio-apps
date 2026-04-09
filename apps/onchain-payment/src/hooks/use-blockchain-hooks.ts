@@ -4,6 +4,8 @@ import {
   UseConnectModal,
   UseDisconnect,
   UseNativeCurrencyMetadata,
+  UseTokenBalance,
+  UseTokenTransfer,
   UseTransaction,
 } from "../hooks/blockchain-hooks/hooks.type";
 import * as ethereumHooks from "../hooks/blockchain-hooks/ethereum";
@@ -17,6 +19,8 @@ interface Hooks {
   useTransaction: UseTransaction;
   useConnectModal: UseConnectModal;
   useDisconnect: UseDisconnect;
+  useTokenTransfer: UseTokenTransfer;
+  useTokenBalance: UseTokenBalance;
 }
 
 export const blockchainHooks: Record<ChainUnion, Hooks> = {
