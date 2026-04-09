@@ -12,7 +12,7 @@
     "@gdapps-studio/payment-card": "workspace:*",
     "@gdapps-studio/ui": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.2.4",
-    "@solana/wallet-adapter-base": "^0.9.25",
+    "@solana/wallet-adapter-base": "^0.9.27",
     "@solana/wallet-adapter-react": "^0.15.37",
     "@solana/wallet-adapter-react-ui": "^0.9.37",
     "@solana/wallet-adapter-wallets": "^0.19.35",
