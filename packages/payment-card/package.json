@@ -24,7 +24,7 @@
     "@gdapps-studio/eslint-config": "workspace:*",
     "@gdapps-studio/typescript-config": "workspace:*",
     "@rainbow-me/rainbowkit": "^2.2.4",
-    "@turbo/gen": "^2.5.0",
+    "@turbo/gen": "^2.8.11",
     "@types/node": "^22.14.0",
     "@types/react": "19.1.0",
     "@types/react-dom": "19.1.1",
