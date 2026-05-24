@@ -1,4 +1,10 @@
-import { chainEthLiteral, chainSolLiteral, ChainUnion } from "@/constants";
+import {
+  chainEthLiteral,
+  chainSolLiteral,
+  ChainUnion,
+  ethCurrencies,
+  solCurrencies,
+} from "@/constants";
 import { isValidSolanaAddress } from "@/utils/is-valid-solana-address";
 import { Address, isAddress } from "viem";
 import { z } from "zod";
@@ -17,7 +23,7 @@ export const paymentFormSchema = z.discriminatedUnion("chain", [
     address: z.custom<Address>(isAddress, "Invalid Ethereum address"),
     chain: chainEthLiteral,
     amount,
-    // currency: ethCurrencies,
+    currency: ethCurrencies,
   }),
   z.object({
     address: z.custom<string>(
@@ -29,7 +35,7 @@ export const paymentFormSchema = z.discriminatedUnion("chain", [
     ),
     chain: chainSolLiteral,
     amount,
-    // currency: solCurrencies,
+    currency: solCurrencies,
   }),
 ]);
 
@@ -47,10 +53,10 @@ export const paymentFormDefaultValues: PaymentFormSchema = {
       : "",
   chain: process.env.NODE_ENV === "development" ? DEBUG_CHAIN : "ethereum",
   amount: process.env.NODE_ENV === "development" ? "0.1" : "0",
-  // currency:
-  //   process.env.NODE_ENV === "development"
-  //     ? DEBUG_CHAIN === "solana"
-  //       ? "sol"
-  //       : "eth"
-  //     : "eth",
+  currency:
+    process.env.NODE_ENV === "development"
+      ? DEBUG_CHAIN === "solana"
+        ? "sol"
+        : "eth"
+      : "eth",
 };

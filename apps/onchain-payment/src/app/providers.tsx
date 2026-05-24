@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Suspense, useMemo } from "react";
+import { ReactNode, Suspense } from "react";
 
 import "@rainbow-me/rainbowkit/styles.css";
 
@@ -9,6 +9,7 @@ import { http, WagmiProvider } from "wagmi";
 import { mainnet } from "wagmi/chains";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import {
+  isDevelopment,
   RAINBOW_KIT_APP_NAME,
   RAINBOW_KIT_BASE_PRC_URL,
   rainbowKitTheme,
@@ -24,6 +25,7 @@ import { SolanaHooksProvider } from "@gio-shara/solana-hooks";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { Footer } from "./_components/footer";
+import { QUICK_NODE_BASE_URL } from "@/constants/quick-node";
 
 const config = getDefaultConfig({
   appName: RAINBOW_KIT_APP_NAME,
@@ -39,44 +41,35 @@ const config = getDefaultConfig({
 
 const queryClient = new QueryClient();
 
-const QUICK_NODE_BASE_URL =
-  "https://fluent-soft-violet.solana-mainnet.quiknode.pro";
-const endpoint =
-  process.env.NODE_ENV === "development"
-    ? clusterApiUrl("devnet")
-    : `${QUICK_NODE_BASE_URL}/${process.env.NEXT_PUBLIC_QUICKNODE_KEY}`;
+const endpoint = isDevelopment
+  ? clusterApiUrl("devnet")
+  : `${QUICK_NODE_BASE_URL}/${process.env.NEXT_PUBLIC_QUICKNODE_KEY}`;
 
 const connection = new Connection(endpoint, "confirmed");
+const wallets = [new UnsafeBurnerWalletAdapter()];
 
-export const Providers = ({ children }: { children: ReactNode }) => {
-  const wallets = useMemo(
-    () => [new UnsafeBurnerWalletAdapter()],
-
-    [],
-  );
-  return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          <WagmiProvider config={config}>
-            <QueryClientProvider client={queryClient}>
-              <SolanaHooksProvider config={{ connection }}>
-                <RainbowKitProvider
-                  theme={rainbowKitTheme}
-                  initialChain={mainnet}
-                >
-                  <div className="flex h-screen flex-col">
-                    <div className="flex-1">
-                      <Suspense>{children}</Suspense>
-                    </div>
-                    <Footer />
+export const Providers = ({ children }: { children: ReactNode }) => (
+  <ConnectionProvider endpoint={endpoint}>
+    <WalletProvider wallets={wallets} autoConnect>
+      <WalletModalProvider>
+        <WagmiProvider config={config}>
+          <QueryClientProvider client={queryClient}>
+            <SolanaHooksProvider config={{ connection }}>
+              <RainbowKitProvider
+                theme={rainbowKitTheme}
+                initialChain={mainnet}
+              >
+                <div className="flex h-screen flex-col">
+                  <div className="flex-1">
+                    <Suspense>{children}</Suspense>
                   </div>
-                </RainbowKitProvider>
-              </SolanaHooksProvider>
-            </QueryClientProvider>
-          </WagmiProvider>
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
-  );
-};
+                  <Footer />
+                </div>
+              </RainbowKitProvider>
+            </SolanaHooksProvider>
+          </QueryClientProvider>
+        </WagmiProvider>
+      </WalletModalProvider>
+    </WalletProvider>
+  </ConnectionProvider>
+);

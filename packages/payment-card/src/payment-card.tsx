@@ -25,6 +25,7 @@ export const PaymentCard = ({
   reciepientAddress = "",
   amount = "0",
   currency = "eth",
+  currencyLogoSrc = "",
   chain = "ethereum",
   onPayment,
   onConnect,
@@ -37,6 +38,7 @@ export const PaymentCard = ({
   reciepientAddress: string | undefined;
   amount: string | undefined;
   currency: string | undefined;
+  currencyLogoSrc: string | undefined;
   chain: string | undefined;
   onPayment?: () => void;
   onConnect?: () => void;
@@ -107,7 +109,13 @@ export const PaymentCard = ({
             size="lg"
             onClick={isConnected ? onPayment : onConnect}
           >
-            {getButtonText()}
+            <span>{getButtonText()}</span>
+            <Image
+              src={currencyLogoSrc}
+              alt={`${currencyLogoSrc} Logo Image`}
+              width={24}
+              height={24}
+            />
           </Button>
         </CardContent>
       </div>
