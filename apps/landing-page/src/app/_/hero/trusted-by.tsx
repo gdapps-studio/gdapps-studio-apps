@@ -29,11 +29,11 @@ const logos = [
     height: 37,
   },
   {
-    href: "https://beta.fractality.xyz/",
-    src: "/assets/fractility.png",
-    alt: "Fractility Logo",
-    width: 40,
-    height: 34,
+    href: "https://www.bio.xyz/",
+    src: "/assets/bio.svg",
+    alt: "BIO Protocol Logo",
+    width: 122,
+    height: 36,
   },
 ];
 
